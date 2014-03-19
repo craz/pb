@@ -9,7 +9,7 @@
         <meta name="author" content="">
         <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-        <title>Cover Template for Bootstrap</title>
+        <title>Калькулятор</title>
 
         <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -35,12 +35,69 @@
             </article>
             <footer></footer>
         </section>
-        <section id="first_frame">
+        <section id="firstFrame">
             <header></header>
             <article>
                 <h1>Вы:</h1>
                 <button name="individual" type="button" class="btn btn btn-success btn-lg">Физическое лицо</button>
                 <button name="legal_entity" type="button" class="btn btn btn-success btn-lg">Юридическое лицо</button>
+            </article>
+            <footer></footer>
+        </section>
+        <section id="individualFrame">
+            <header>
+
+            </header>
+            <article>
+                <h1>Выберите интересующий вас продукт</h1>
+                <button name="loanForAnyPurpose" type="button" class="btn btn btn-warning btn-lg menuPr">Кредит на любые цели</button></br>
+                <button name="mortgage" type="button" class="btn btn btn-warning btn-lg menuPr">Ипотека</button></br>
+                <button name="carLoans" type="button" class="btn btn btn-warning btn-lg menuPr">Автокредит</button></br>
+                <button name="deposits" type="button" class="btn btn btn-warning btn-lg menuPr">Вклады</button></br>
+            </article>
+            <footer></footer>
+        </section>
+        <section id ="loanForAnyPurpose">
+            <header></header>
+            <article>
+                <form action='/' name='data' method="get">
+                    <fieldset>
+                        <input type="radio" name='sourceOfIncome' checked="checked"> 
+                        <label>Работник по найму</label>
+                        <br/>
+                        <input type="radio" name='sourceOfIncome'> 
+                        <label>Индивидуальный предприниматель</label>
+                        <br/>
+                        <input type="radio" name='sourceOfIncome'> 
+                        <label>Учредитель юридического лица</label>
+                        <br/>
+                    </fieldset>
+                    <fieldset>
+                        <h1>Сумма:</h1>
+                        <div class="alert alert-info noMargin"> 
+                            <input id="num" class="alignRight" type="text">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <input type="radio" name="strah" checked="checked" value='noStrah'> 
+                        <label>Без обеспечения</label>
+                        <br/>
+                        <input type="radio" name="strah" value="strah"> 
+                        <label>Залог транспортного средства</label>
+                        <br/> 
+                        <input type="checkbox" name="strahCheck" id="strahCheck">
+                        <label id="labelStrah">Страховка имущества</label>
+                    </fieldset>
+                    <fieldset>
+                        <input type='checkbox' name='personalStrah' id='personalStrah'>
+                        <label id='labelPersonalStrah'>Личное страхование</label>
+                    </fieldset>
+                    <fieldset>
+                        <select>
+                            <option disabled='disabled' selected="selected">Выберите срок кредита</option>
+                        </select>
+                    </fieldset>
+                </form>                
             </article>
             <footer></footer>
         </section>
@@ -50,17 +107,49 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/docs.min.js"></script>
-        <link rel="stylesheet" href="css/start/jquery-ui.custom.css" />
+        <!--link rel="stylesheet" href="css/start/jquery-ui.custom.css" /-->
         <script src="js/jquery-1.10.2.js"></script>
         <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+        <!-- keyboard widget css & script (required) -->
+        <link href="css/keyboard.css" rel="stylesheet">
+        <script src="js/keyboard/jquery.keyboard.js"></script>
         <script>
             $("section#initialScreen").click(function() {
-                $("section#initialScreen").toggle("drop",{complete:function(){
-                        $("section#first_frame").show("drop");
-                }});
+                $("section#initialScreen").hide("drop", {complete: function() {
+                        $("section#firstFrame").show("drop");
+                    }});
             });
-
-
+            $("button[name='individual']").click(function() {
+                $("section#firstFrame").hide("drop", {complete: function() {
+                        $("section#individualFrame").show("drop");
+                    }});
+            });
+            $("button[name='loanForAnyPurpose'").click(function() {
+                $("section#individualFrame").hide("drop", {complete: function() {
+                        $("section#loanForAnyPurpose").show("drop");
+                    }});
+            });
+            $("button[name='employee'").click(function() {
+                $("section#loanForAnyPurpose").hide("drop", {complete: function() {
+                        $("section#loanForAnyPurpose").show("drop");
+                    }});
+            });
+            $("input[name='strah']").change(function() {
+                if ($("input[name = 'strahCheck']").css("display") !== 'none') {
+                    $("input[name='strahCheck'],label#labelStrah").css("display", "none");
+                } else {
+                    $("input[name='strahCheck'],label#labelStrah").css("display", "inline");
+                }
+            });
+            // Script 
+            $('#num')
+                    .keyboard({
+                        layout: 'num',
+                        restrictInput: true, // Prevent keys not in the displayed keyboard from being typed in 
+                        preventPaste: true, // prevent ctrl-v and right click 
+                        autoAccept: true
+                    })
+                    .addTyping();
         </script>
     </body>
 </html>

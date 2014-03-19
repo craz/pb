@@ -182,11 +182,37 @@ section#initialScreen article div#logo{
     left:50%;
     margin-left: -127px;
 }
-section#first_frame{
+section#firstFrame{
     background: #28a4c9;
 }
-section#first_frame article{
+section#firstFrame article{
     position: relative;
     top:50%;
     margin-top: -47px;
+}
+section#individualFrame article{
+    position: relative;
+    top:50%;
+    margin-top: -134px;
+}
+section#individualFrame article .menuPr{
+    margin-bottom: 10px;
+}
+.noMargin{
+    margin: 0;
+}
+section#loanForAnyPurpose{
+    text-align: left;
+}
+section#loanForAnyPurpose article{
+    position:relative;
+    width:500px;
+    left:50%;
+    margin-left: -250px;
+}
+#strahCheck, #labelStrah{
+    display: none;
+}
+section#loanForAnyPurpose form{
+    
 }
