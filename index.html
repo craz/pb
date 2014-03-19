@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,9 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
-
-        <title>Cover Template for Bootstrap</title>
+        <title>Kiosk</title>
+        <link rel="shortcut icon" href="../../assets/ico/favicon.ico"> 
 
         <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +24,6 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-
     <body>
         <section id="initialScreen">
             <header></header>
@@ -38,29 +35,162 @@
         <section id="first_frame">
             <header></header>
             <article>
-                <h1>Вы:</h1>
-                <button name="individual" type="button" class="btn btn btn-success btn-lg">Физическое лицо</button>
-                <button name="legal_entity" type="button" class="btn btn btn-success btn-lg">Юридическое лицо</button>
+                <div id="1">
+                    <h1>Вы:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(2)">Физическое лицо</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(2)">Юридическое лицо</button>
+                </div>
+                <div id="2" style="display: none">
+                    <h1>Выберите продукт:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(211)">Кредит на любые цели</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(221)">Ипотека</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(231)">Автокредит</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(241)">Вклады</button>
+                </div>
+
+                <!-- Credits All-->
+                <div id="211" style="display: none">
+                <form>
+                    <h1>Тип занятости:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(212)">Работник по найму</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(212)">Индивидуальный предприниматель</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(212)">Учредитель Юридического лица</button>
+                </div>
+                <div id="212" style="display: none">
+                    <h1>Сумма кредита:</h1>
+                    <input value="" onkeypress=""><br><br>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(213)">Далее</button>
+                </div>
+                <div id="213" style="display: none">
+                    <h1>Выбор обеспечения:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(214)">Без обеспечения</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(2131)">Залог транспортного средства</button>
+                </div>
+                <div id="2131" style="display: none">
+                    <h1>Страхование имущества:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(214)">Далее</button>
+                </div>
+                <div id="214" style="display: none">
+                    <h1>Личное страхование:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(215)">Далее</button>
+                </div>
+                <div id="215" style="display: none">
+                    <h1>Срок кредита:</h1>
+                    <form id="myform">
+                        <select name="sv_313"  id="sv_313">
+                            <option value="Select One">Select One</option>
+                            <option value="1">Один</option>
+                            <option value="2">Два</option>
+                            <option value="3">Три</option>
+                        </select>
+                    </form>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(216)">Выбрать</button>
+                </div>
+                <div id="216" style="display: none">
+                    <h1>Расчитать:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objStart()">Выбрать</button>
+                </div>
+                </form>
+                    
+                <!-- Auto Credit-->
+                <div id="231" style="display: none">
+                    <h1>Автомобиль:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(232)">Новый</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(232)">Подержанный</button>
+                </div>
+                <div id="232" style="display: none">
+                    <h1>Стоимость автомобиля:</h1>
+                    <input value="" onkeypress=""><br><br>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(233)">Далее</button>
+                </div>
+                <div id="233" style="display: none">
+                    <h1>Первоначальный взнос:</h1>
+                    <input value="" onkeypress=""><br><br>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(234)">Далее</button>
+                </div>
+                <div id="234" style="display: none">
+                    <h1>Срок кредита:</h1>
+                    <form id="myform">
+                        <select name="sv_313"  id="sv_313">
+                            <option value="Select One">Select One</option>
+                            <option value="1">Один</option>
+                            <option value="2">Два</option>
+                            <option value="3">Три</option>
+                        </select>
+                    </form>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(235)">Выбрать</button>
+                </div>
+                <div id="235" style="display: none">
+                    <h1>Страхование:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(236)">С оформлением страховки автомобиля</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(236)">Без оформления страховки автомобиля</button>
+                </div>
+                <div id="236" style="display: none">
+                    <h1>Личное страхование:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(237)">Далее</button>
+                </div>
+                <div id="237" style="display: none">
+                    <h1>Расчитать:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objStart()">Выбрать</button>
+                </div>
+
+                <!-- Ipoteka-->
+                <div id="221" style="display: none">
+                    <form id="myform">
+                        <select name="sv_313"  id="sv_313">
+                            <option value="Select One">Select One</option>
+                            <option value="0.1">A</option>
+                            <option value="0.2">B</option>
+                            <option value="0.3">C</option>
+                        </select>
+                    </form>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(232)">Далее</button>
+                </div>
+                <div id="222" style="display: none">
+                    <h1>Тип занятости:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(233)">Работник по найму</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(233)">Индивидуальный предприниматель</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(233)">Учредитель Юридического лица</button>
+                </div>
+                <div id="227" style="display: none">
+                    <h1>Расчитать:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objStart()">Выбрать</button>
+                </div>
+
+                <!-- Vklad-->
+                <div id="241" style="display: none">
+                    <h1>Валюта вклада</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(242)">Рубли</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(242)">Доллары</button>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objNext(242)">Евро</button>
+                </div>
+                <div id="247" style="display: none">
+                    <h1>Расчитать:</h1>
+                    <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objStart()">Выбрать</button>
+                </div>
             </article>
+            <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objBack()">Назад</button>
+            <button name="" type="button" class="btn btn btn-success btn-lg" onclick="objStart()">Выйти</button>
             <footer></footer>
         </section>
+        
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/docs.min.js"></script>
-        <link rel="stylesheet" href="css/start/jquery-ui.custom.css" />
+        <link rel="stylesheet" href="css/start/jquery-ui-1.10.4.custom.min.css" />
         <script src="js/jquery-1.10.2.js"></script>
         <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
         <script>
-            $("section#initialScreen").click(function() {
-                $("section#initialScreen").toggle("drop",{complete:function(){
-                        $("section#first_frame").show("drop");
-                }});
-            });
-
-
+                $("section#initialScreen").click(function() {
+                    $("section#initialScreen").toggle("drop", {complete: function() {
+                            $("section#first_frame").show("drop");
+                        }});
+                }
+                );
         </script>
+        <script src="js/objNav.js"></script>
     </body>
 </html>
