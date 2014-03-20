@@ -1448,14 +1448,21 @@ $.keyboard = function(el, options){
 			]
 		},
 		'num' : {
-			'default' : [
+			/*'default' : [
 				'= ( ) {b}',
 				'{clear} / * -',
 				'7 8 9 +',
 				'4 5 6 {sign}',
 				'1 2 3 %',
 				'0 . {a} {c}'
-			]
+			]*/
+                                'default' : [
+				
+				'7 8 9',
+				'4 5 6',
+				'1 2 3',
+				' 0 '
+                                ]
 		}
 	};
 

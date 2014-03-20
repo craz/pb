@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -29,14 +28,18 @@
 
     <body>
         <section id="initialScreen">
-            <header></header>
+            <header>
+                <div class='numberScreen' id="screen1">1</div>
+            </header>
             <article>
                 <div id="logo"></div>
             </article>
             <footer></footer>
         </section>
         <section id="firstFrame">
-            <header></header>
+            <header>
+                <div class='numberScreen' id="screen1">2</div>
+            </header>
             <article>
                 <h1>Вы:</h1>
                 <button name="individual" type="button" class="btn btn btn-success btn-lg">Физическое лицо</button>
@@ -46,7 +49,7 @@
         </section>
         <section id="individualFrame">
             <header>
-
+                <div class='numberScreen' id="screen1">3</div>
             </header>
             <article>
                 <h1>Выберите интересующий вас продукт</h1>
@@ -58,44 +61,59 @@
             <footer></footer>
         </section>
         <section id ="loanForAnyPurpose">
-            <header></header>
+            <header>
+                <div class='numberScreen' id="screen1">4</div>
+            </header>
             <article>
-                <form action='/' name='data' method="get">
+                <form action='/' name='data' method="get" id="formForLeon">
                     <fieldset>
-                        <input type="radio" name='sourceOfIncome' checked="checked"> 
+                        <h1>Вы:</h1>
+                        <input type="radio" name='sourceOfIncome' checked="checked" value='1'> 
                         <label>Работник по найму</label>
                         <br/>
-                        <input type="radio" name='sourceOfIncome'> 
+                        <input type="radio" name='sourceOfIncome' value='2'> 
                         <label>Индивидуальный предприниматель</label>
                         <br/>
-                        <input type="radio" name='sourceOfIncome'> 
+                        <input type="radio" name='sourceOfIncome' value='3'> 
                         <label>Учредитель юридического лица</label>
                         <br/>
                     </fieldset>
                     <fieldset>
                         <h1>Сумма:</h1>
                         <div class="alert alert-info noMargin"> 
-                            <input id="num" class="alignRight" type="text">
+                            <input id="num" class="alignRight" type="text" value='' placeholder="минимальная сумма кредита 150000,01">
                         </div>
                     </fieldset>
                     <fieldset>
-                        <input type="radio" name="strah" checked="checked" value='noStrah'> 
+                        <h1>Обеспечение:</h1>
+                        <input type="radio" name="strah" checked="checked" value='1'> 
                         <label>Без обеспечения</label>
                         <br/>
-                        <input type="radio" name="strah" value="strah"> 
+                        <input type="radio" name="strah" value="2"> 
                         <label>Залог транспортного средства</label>
                         <br/> 
-                        <input type="checkbox" name="strahCheck" id="strahCheck">
+                        <input type="checkbox" name="strahCheck" id="strahCheck" value='1'>
                         <label id="labelStrah">Страховка имущества</label>
                     </fieldset>
                     <fieldset>
-                        <input type='checkbox' name='personalStrah' id='personalStrah'>
+                        <input type='checkbox' name='personalStrah' id='personalStrah' value='1'>
                         <label id='labelPersonalStrah'>Личное страхование</label>
                     </fieldset>
                     <fieldset>
-                        <select>
+                        <h1>Срок кредита:</h1>
+                        <select id='selectTime'>
                             <option disabled='disabled' selected="selected">Выберите срок кредита</option>
+                            <option value="24">24</option>
+                            <option value="36">36</option>
+                            <option value="48">48</option>
+                            <option value="60">60</option>
+                            <option value="72">72</option>
+                            <option value="84">84</option>
                         </select>
+                    </fieldset>
+                    <fieldset>
+                        <br/>
+                        <button name="goLoanForAnyPurpose" type="button" class="btn btn btn-warning btn-lg">Рассчитать</button>
                     </fieldset>
                 </form>                
             </article>
@@ -141,11 +159,46 @@
                     $("input[name='strahCheck'],label#labelStrah").css("display", "inline");
                 }
             });
+            var 
+            go = $("button[name='goLoanForAnyPurpose']");
+            go.click(function (){
+                sourceOfIncome = $("input[name='sourceOfIncome']").val();
+                /*var sum = 0;
+                alert($("input#num").val());*/
+                sum = $("input#num").val();
+                /***crazComments
+            * Это минимальная сумма кредита по продукту "На всё"
+            */
+                if(sum<150000.01){
+                    sum=150000.01;
+                    $("input#num").val("150000.01");
+                }                
+                strah = $("input[name='strah']").val();
+                if(strah == 1){
+                    maxsum = 500000;
+                    if (sum>maxsum){
+                        sum=500000;
+                        $("input#num").val("500000");
+                    }
+                }
+                strahCheck = $("input[name='strahCheck']").val();
+                personalStrah = $("input[name='personalStrah']").val();
+                selectTime = $("select#selectTime").val();
+                if(selectTime==null){
+                    selectTime = 24;
+                }
+                /***CrazComments
+            * расчет процента
+            */
+                percent = 0;
+                if()
+                console.log("soi = "+sourceOfIncome+";sum="+sum+";strah="+strah+";strahCheck="+strahCheck+";personalStrah="+";selectTime="+selectTime);
+            });
             // Script 
             $('#num')
                     .keyboard({
                         layout: 'num',
-                        restrictInput: true, // Prevent keys not in the displayed keyboard from being typed in 
+                        restrictInput: false, // Prevent keys not in the displayed keyboard from being typed in 
                         preventPaste: true, // prevent ctrl-v and right click 
                         autoAccept: true
                     })

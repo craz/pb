@@ -213,6 +213,27 @@ section#loanForAnyPurpose article{
 #strahCheck, #labelStrah{
     display: none;
 }
-section#loanForAnyPurpose form{
-    
+.numberScreen{
+    position: absolute;
+    left:20px;
+    top:20px;
+    font-size: 32px;
+    color:white;
+}
+#formForLeon{
+    margin-top:50px;
+}
+#selectTime{
+    color:#333;
+}
+.ui-keyboard{
+    background: #28a4c9;
+    color:#31708f;
+    border:#333 solid 1px;
+}
+.ui-keyboard-preview-wrapper, .ui-keyboard-preview, ui-keyboard-button{
+    opacity: 1;
+}
+input#num{
+    width:290px;
 }
