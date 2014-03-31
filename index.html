@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,11 +9,11 @@
         <meta name="author" content="">
         <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-        <title>Калькулятор</title>
+        <title>Cover Template for Bootstrap</title>
 
         <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
+        <link href="css/keyboard.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="css/cover.css" rel="stylesheet">
 
@@ -27,182 +28,169 @@
     </head>
 
     <body>
-        <section id="initialScreen">
-            <header>
-                <div class='numberScreen' id="screen1">1</div>
-            </header>
-            <article>
-                <div id="logo"></div>
-            </article>
-            <footer></footer>
-        </section>
-        <section id="firstFrame">
-            <header>
-                <div class='numberScreen' id="screen1">2</div>
-            </header>
-            <article>
-                <h1>Вы:</h1>
-                <button name="individual" type="button" class="btn btn btn-success btn-lg">Физическое лицо</button>
-                <button name="legal_entity" type="button" class="btn btn btn-success btn-lg">Юридическое лицо</button>
-            </article>
-            <footer></footer>
-        </section>
-        <section id="individualFrame">
-            <header>
-                <div class='numberScreen' id="screen1">3</div>
-            </header>
-            <article>
-                <h1>Выберите интересующий вас продукт</h1>
-                <button name="loanForAnyPurpose" type="button" class="btn btn btn-warning btn-lg menuPr">Кредит на любые цели</button></br>
-                <button name="mortgage" type="button" class="btn btn btn-warning btn-lg menuPr">Ипотека</button></br>
-                <button name="carLoans" type="button" class="btn btn btn-warning btn-lg menuPr">Автокредит</button></br>
-                <button name="deposits" type="button" class="btn btn btn-warning btn-lg menuPr">Вклады</button></br>
-            </article>
-            <footer></footer>
-        </section>
-        <section id ="loanForAnyPurpose">
-            <header>
-                <div class='numberScreen' id="screen1">4</div>
-            </header>
-            <article>
-                <form action='/' name='data' method="get" id="formForLeon">
-                    <fieldset>
-                        <h1>Вы:</h1>
-                        <input type="radio" name='sourceOfIncome' checked="checked" value='1'> 
-                        <label>Работник по найму</label>
-                        <br/>
-                        <input type="radio" name='sourceOfIncome' value='2'> 
-                        <label>Индивидуальный предприниматель</label>
-                        <br/>
-                        <input type="radio" name='sourceOfIncome' value='3'> 
-                        <label>Учредитель юридического лица</label>
-                        <br/>
-                    </fieldset>
-                    <fieldset>
-                        <h1>Сумма:</h1>
-                        <div class="alert alert-info noMargin"> 
-                            <input id="num" class="alignRight" type="text" value='' placeholder="минимальная сумма кредита 150000,01">
+
+        <div class="site-wrapper">
+
+            <div class="site-wrapper-inner">
+
+                <div class="cover-container">
+                    <!--Заставка-->
+                    <img src="img/fromVk.jpg" width="200" height="200" id='logo'>
+                    <div class="inner cover frames" id="frame_1">
+
+                        <h1 class="cover-heading">Моментально рассчитать условия<br/><span> по кредиту или вкладу</span></h1>            
+                        <p class="lead">
+                            <a href="#" class="btn btn-lg btn-success">ДА</a>
+                        </p>
+                    </div>
+                    <!--Выбор субъекта-->
+                    <div class="inner cover frames" id="frame_2">                        
+                        <h1 class="cover-heading">Выбирите условия кредитования:</h1>            
+                        <p class="lead">
+                            <a href="#" class="btn fiz btn-lg btn-success">Физическое лицо</a>
+                            <a href="#" class="btn ur btn-lg btn-success">Юридическое лицо</a>
+                        </p>
+                    </div>
+                    <!--Физическое лицо-->
+                    <!--Программа кредитования-->
+                    <div class="inner cover frames" id="frame_3">                        
+                        <h1 class="cover-heading">Выбирите программу кредитования:</h1>            
+                        <p class="lead">
+                            <a href="#" class="btn kredit btn-lg btn-success">Кредит на любые цели</a>
+                            <a href="#" class="btn avto btn-lg btn-success">Автокредит</a><br/><br/>
+                            <a href="#" class="btn ipoteka btn-lg btn-success">Ипотека</a>
+                            <a href="#" class="btn vklad btn-lg btn-success">Вклад</a><br/>
+                        </p>
+                    </div>
+                    <div class="inner cover frames" id="frame_4">                        
+                        <h1 class="cover-heading">Основной источник дохода:</h1>            
+                        <p class="lead">
+                            <label><input type='radio' name='dohod' value='1' checked="checked"> Вы - работник по найму</label><br/>
+                            <label><input type='radio' name='dohod' value='2'> Вы – индивидуальный предприниматель</label><br/>
+                            <label><input type='radio' name='dohod' value='3'> Вы - учредитель юридического лица</label>
+                        </p>
+                        <h1 class="cover-heading">Сумма:</h1>
+                        <p class="lead">
+                            <input id="num" name='sum' class="alignRight" type="text" value='' placeholder="минимальная сумма кредита 150000,01">
+                        </p>
+                        <h1 class="cover-heading">Выбор обеспечения:</h1>
+                        <p class="lead">
+                            <label><input type='radio' name='obesp' value='1' checked="checked"> Без обеспечения</label><br/>
+                            <label><input type='radio' name='obesp' value='2'> Залог транспортного средства</label><br/>                            
+                            <label id='strahovkaImushestva'><input type="checkbox" name='strahovkaImushestva' checked="checked"> Застраховать имущество</label><br/>
+                        </p>
+                        <p class="lead">
+                            <label id='strahovkaLichnosti'><input type="checkbox" name='strahovkaLichnosti' checked="checked"> Личное страхование</label><br/>
+                            <select id='selectTime'>
+                                <option disabled='disabled' selected="selected">Выберите срок кредита</option>
+                                <option value="24">24</option>
+                                <option value="36">36</option>
+                                <option value="48">48</option>
+                                <option value="60">60</option>
+                                <option value="72">72</option>
+                                <option value="84">84</option>
+                            </select>
+                        </p>
+                        <p class='lead'>
+                            <a href="#" class="btn btn-lg go btn-success" onclick="calculate_CreditForAll()">Рассчитать</a>
+                        </p>
+                        <div id="itog"></div>
+                    </div>
+                    <div class="mastfoot">
+                        <div class="inner">
+                            <p><img src="img/bottom.png" width="600"></p>
                         </div>
-                    </fieldset>
-                    <fieldset>
-                        <h1>Обеспечение:</h1>
-                        <input type="radio" name="strah" checked="checked" value='1'> 
-                        <label>Без обеспечения</label>
-                        <br/>
-                        <input type="radio" name="strah" value="2"> 
-                        <label>Залог транспортного средства</label>
-                        <br/> 
-                        <input type="checkbox" name="strahCheck" id="strahCheck" value='1'>
-                        <label id="labelStrah">Страховка имущества</label>
-                    </fieldset>
-                    <fieldset>
-                        <input type='checkbox' name='personalStrah' id='personalStrah' value='1'>
-                        <label id='labelPersonalStrah'>Личное страхование</label>
-                    </fieldset>
-                    <fieldset>
-                        <h1>Срок кредита:</h1>
-                        <select id='selectTime'>
-                            <option disabled='disabled' selected="selected">Выберите срок кредита</option>
-                            <option value="24">24</option>
-                            <option value="36">36</option>
-                            <option value="48">48</option>
-                            <option value="60">60</option>
-                            <option value="72">72</option>
-                            <option value="84">84</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <br/>
-                        <button name="goLoanForAnyPurpose" type="button" class="btn btn btn-warning btn-lg">Рассчитать</button>
-                    </fieldset>
-                </form>                
-            </article>
-            <footer></footer>
-        </section>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-ui.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/docs.min.js"></script>
-        <!--link rel="stylesheet" href="css/start/jquery-ui.custom.css" /-->
-        <script src="js/jquery-1.10.2.js"></script>
-        <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
-        <!-- keyboard widget css & script (required) -->
-        <link href="css/keyboard.css" rel="stylesheet">
+
         <script src="js/keyboard/jquery.keyboard.js"></script>
         <script>
-            $("section#initialScreen").click(function() {
-                $("section#initialScreen").hide("drop", {complete: function() {
-                        $("section#firstFrame").show("drop");
-                    }});
-            });
-            $("button[name='individual']").click(function() {
-                $("section#firstFrame").hide("drop", {complete: function() {
-                        $("section#individualFrame").show("drop");
-                    }});
-            });
-            $("button[name='loanForAnyPurpose'").click(function() {
-                $("section#individualFrame").hide("drop", {complete: function() {
-                        $("section#loanForAnyPurpose").show("drop");
-                    }});
-            });
-            $("button[name='employee'").click(function() {
-                $("section#loanForAnyPurpose").hide("drop", {complete: function() {
-                        $("section#loanForAnyPurpose").show("drop");
-                    }});
-            });
-            $("input[name='strah']").change(function() {
-                if ($("input[name = 'strahCheck']").css("display") !== 'none') {
-                    $("input[name='strahCheck'],label#labelStrah").css("display", "none");
-                } else {
-                    $("input[name='strahCheck'],label#labelStrah").css("display", "inline");
-                }
-            });
-            var 
-            go = $("button[name='goLoanForAnyPurpose']");
-            go.click(function (){
-                sourceOfIncome = $("input[name='sourceOfIncome']").val();
-                /*var sum = 0;
-                alert($("input#num").val());*/
-                sum = $("input#num").val();
-                /***crazComments
-            * Это минимальная сумма кредита по продукту "На всё"
-            */
-                if(sum<150000.01){
-                    sum=150000.01;
-                    $("input#num").val("150000.01");
-                }                
-                strah = $("input[name='strah']").val();
-                if(strah == 1){
-                    maxsum = 500000;
-                    if (sum>maxsum){
-                        sum=500000;
-                        $("input#num").val("500000");
-                    }
-                }
-                strahCheck = $("input[name='strahCheck']").val();
-                personalStrah = $("input[name='personalStrah']").val();
-                selectTime = $("select#selectTime").val();
-                if(selectTime==null){
-                    selectTime = 24;
-                }
-                /***CrazComments
-            * расчет процента
-            */
-                percent = 0;
-                if()
-                console.log("soi = "+sourceOfIncome+";sum="+sum+";strah="+strah+";strahCheck="+strahCheck+";personalStrah="+";selectTime="+selectTime);
-            });
-            // Script 
-            $('#num')
-                    .keyboard({
-                        layout: 'num',
-                        restrictInput: false, // Prevent keys not in the displayed keyboard from being typed in 
-                        preventPaste: true, // prevent ctrl-v and right click 
-                        autoAccept: true
-                    })
-                    .addTyping();
+                                /*первый уходит, второй приходит*/
+                                $("#frame_1 .btn").click(function() {
+                                    $("#frame_1").hide("drop", {direction: "left"}, "slow", function() {
+                                        $("#frame_2").show("drop", {direction: "right"}, 'slow');
+                                    });
+                                });
+                                /*второй уходит, приходит физическое*/
+                                $("#frame_2 .fiz").click(function() {
+                                    $("#frame_2").hide("drop", {direction: "left"}, "slow", function() {
+                                        $("#frame_3").show("drop", {direction: "right"}, 'slow');
+                                    });
+                                });
+                                /*уходит физичиское, приходит расчет для кредита на любые цели*/
+                                $("#frame_3 .kredit").click(function() {
+                                    $("#frame_3").hide("drop", {direction: "left"}, "slow", function() {
+                                        $("#frame_4").show("drop", {direction: "right"}, 'slow');
+                                        $("#logo").hide();
+                                    });
+                                });
+                                /*Для страховки имущества*/
+                                $("#frame_4 input[name='obesp']").click(function() {
+                                    if ($(this).val() == 1) {
+                                        $("label#strahovkaImushestva").hide();
+                                        $("label#strahovkaImushestva input").removeAttr("checked");
+                                    } else if ($(this).val() == 2) {
+                                        $("label#strahovkaImushestva").show();
+                                        $("label#strahovkaImushestva input").attr('checked', 'checked');
+                                    }
+                                });
+                                function calculate_CreditForAll() {
+                                    /*проверяем обеспечение*/
+                                    var flagMax = false;
+                                    if ($("label#strahovkaImushestva input").attr('checked')) {
+                                        flagMax = true;
+                                    } else {
+                                        flagMax = false;
+                                    }
+                                    var ssum = function() {
+                                        if ($("input[name=sum]").val() == '' || $("input[name=sum]").val() < 150000.01) {
+                                            return 150000.01;
+                                        }
+                                        else if ($("input[name=sum]").val() > 500000 && !flagMax) {
+                                            return $("input[name=sum]").val();
+                                        } else {
+                                            return 500000
+                                        }
+                                        return "error";
+                                    }
+                                    $(".go").html(ssum);
+                                    var enterParams = {
+                                        profitSource: $('input[name=dohod]:checked').val(),
+                                        creditSum: ssum,
+                                        provision: $('input[name=obesp]:checked').val(),
+                                        creditTerm
+                                                : $("#selectTime").val(),
+                                        insuranceProperty: flagMax,
+                                        insurancePerson: $('input[name=strahovkaImushestva]:checked').val()
+                                    };
+                                    console.log(enterParams);
+                                    //Product_CreditForAll(enterParams, 0, 1);
+                                }
+
+// Script 
+                                $('#num')
+                                        .keyboard({
+                                            layout: 'num',
+                                            restrictInput: false, // Prevent keys not in the displayed keyboard from being typed in 
+                                            preventPaste: true, // prevent ctrl-v and right click 
+                                            autoAccept: true
+                                        });
+                                        /*.addTyping()*/;
+
         </script>
+
     </body>
 </html>

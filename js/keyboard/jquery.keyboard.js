@@ -1458,10 +1458,10 @@ $.keyboard = function(el, options){
 			]*/
                                 'default' : [
 				
-				'7 8 9',
+				'{left} 7 8 9 {right}',
 				'4 5 6',
 				'1 2 3',
-				' 0 '
+				'{clear} 0 {accept}'
                                 ]
 		}
 	};
@@ -1498,7 +1498,7 @@ $.keyboard = function(el, options){
 		display : {
 			// check mark - same action as accept
 			'a'      : '\u2714:Accept (Shift-Enter)',
-			'accept' : 'Accept:Accept (Shift-Enter)',
+			'accept' : 'Ok:Ok (Shift-Enter)',
 			// other alternatives \u2311
 			'alt'    : 'Alt:\u2325 AltGr',
 			// Left arrow (same as &larr;)
