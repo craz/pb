@@ -184,17 +184,7 @@ body,section {
     height: 45px;
     font-size: 20px;
 }
-#frame_4 p.lead{
-    text-align: left;
-}
-#frame_4 #num{
-    color:#00519b;
-}
-#frame_4 h1{
-    text-align: left;
-    color:#16e053;
-    font-size: 25px;
-}
+
 .ui-keyboard{
     background: #28a4c9;
     color:#31708f;
@@ -209,16 +199,32 @@ input#num{
 .ui-keyboard-accept{
     min-width: 2em;
 }
-#frame_4 p.lead{
-    font-size: 15px;
+
+#frame_4 #num,
+#frame_5 #num{
+    color:#00519b;
 }
-#frame_4 select#selectTime{
+#frame_4 h1,
+#frame_5 h1{
+    text-align: left;
+    color:#16e053;
+    font-size: 25px;
+}
+#frame_4 p.lead, 
+#frame_5 p.lead{
+    font-size: 15px;
+    text-align: left;
+}
+#frame_4 select#selectTime,
+#frame_5 select#selectTime{
     color:#00519b;
     width: 290px;
     height: 24px;
     margin-top: 10px;
 }
-#frame_4 label{
+#frame_4 label,
+#frame_5 label
+{
     background: linear-gradient(to left, #7fc3ff, #00519b);
     width:350px;
     cursor: pointer;

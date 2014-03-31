@@ -34,7 +34,7 @@
             <div class="site-wrapper-inner">
 
                 <div class="cover-container">
-                    <!--Заставка-->
+                    <!--!!!!!!!!!!!!!!!Заставка!!!!!!!!!!!!!!!-->
                     <img src="img/fromVk.jpg" width="200" height="200" id='logo'>
                     <div class="inner cover frames" id="frame_1">
 
@@ -43,7 +43,7 @@
                             <a href="#" class="btn btn-lg btn-success">ДА</a>
                         </p>
                     </div>
-                    <!--Выбор субъекта-->
+                    <!--!!!!!!!!!!!!!!!Выбор субъекта!!!!!!!!!!!!!!!-->
                     <div class="inner cover frames" id="frame_2">                        
                         <h1 class="cover-heading">Выбирите условия кредитования:</h1>            
                         <p class="lead">
@@ -51,17 +51,18 @@
                             <a href="#" class="btn ur btn-lg btn-success">Юридическое лицо</a>
                         </p>
                     </div>
-                    <!--Физическое лицо-->
-                    <!--Программа кредитования-->
+                    <!--!!!!!!!!!!!!!!!Физическое лицо!!!!!!!!!!!!!!!-->
+                    <!--!!!!!!!!!!!!!!!Программа кредитования!!!!!!!!!!!!!!!-->
                     <div class="inner cover frames" id="frame_3">                        
                         <h1 class="cover-heading">Выбирите программу кредитования:</h1>            
                         <p class="lead">
                             <a href="#" class="btn kredit btn-lg btn-success">Кредит на любые цели</a>
-                            <a href="#" class="btn avto btn-lg btn-default">Автокредит</a><br/><br/>
+                            <a href="#" class="btn avto btn-lg btn-success">Автокредит</a><br/><br/>
                             <a href="#" class="btn ipoteka btn-lg btn-default">Ипотека</a>
                             <a href="#" class="btn vklad btn-lg btn-default">Вклад</a><br/>
                         </p>
                     </div>
+                    <!---!!!!!!!!!!!!!!!Кредит физику!!!!!!!!-->
                     <div class="inner cover frames" id="frame_4">                        
                         <h1 class="cover-heading">Основной источник дохода:</h1>            
                         <p class="lead">
@@ -104,6 +105,53 @@
                             </div>
                         </div>
                     </div>
+                    <!---!!!!!!!!!!!!!Авто кредит!!!!!!!!!!!-->
+                    <div class="inner cover frames" id="frame_5">                        
+                        <h1 class="cover-heading">Приобретаемый автомобиль:</h1>            
+                        <p class="lead">
+                            <label><input type='radio' name='tip' value='1' checked="checked"> Новый</label><br/>
+                            <label><input type='radio' name='tip' value='2'> Подержанный</label><br/>                            
+                        </p>
+                        <h1 class="cover-heading">Стоимость автомобиля:</h1>
+                        <p class="lead">
+                            <input id="num" name='sumavto' class="alignRight textFields" type="text" value='' placeholder="минимальная сумма кредита 150000,01">
+                        </p>
+                        <h1 class="cover-heading">Первоначальный взнос:</h1>
+                        <p class="lead">
+                            <input id="num" name='vznos' class="alignRight textFields" type="text" value='' placeholder="минимальная сумма кредита 150000,01">
+                        </p>
+                        <p class="lead">                            
+                            <span>Выберите срок кредита:</span>&nbsp;&nbsp;
+                            <select id='selectTimeavto' style="width:50px;">                                
+                                <option value="24" selected="selected">24</option>
+                                <option value="36">36</option>
+                                <option value="48">48</option>
+                                <option value="60">60</option>
+                                <option value="72">72</option>
+                                <option value="84">84</option>
+                            </select>
+                        </p>
+                        <h1 class="cover-heading">Страхование:</h1>
+                        <p class="lead">
+                            <label><input type='radio' name='' value='1' checked="checked"> С оформлением страховки автомобиля</label><br/>
+                            <label><input type='radio' name='' value='2'> Без оформления страховки автомобиля</label><br/>                                                        
+                        </p>
+                        <p class="lead">
+                            <label id='strahovkaLichnosti'><input type="checkbox" name='str' checked="checked"> Личное страхование</label><br/>                            
+                        </p>                        
+                        <div class="panel panel-success" id="itog">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Расчет кредита</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Сумма кредита: <span id="i_sum"></span></p>
+                                <p>Срок кредита: <span id="i_time"></span></p>
+                                <p>Процентная ставка: <span id="i_procent"></span></p>
+                                <p>Ежемесячный платеж: <span id="i_plateg"></span></p>      
+                                <p>Всего к выплате: <span id="i_itog"></span></p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="mastfoot">
                         <div class="inner">
                             <p><img src="img/bottom.png" width="600"></p>
@@ -128,6 +176,13 @@
         <script>
             var flagMax = false;
             var kredit;
+            var logo = $("#logo");            
+            var frameWithCalc = {
+                f1 : $("#frame_4"),//фрейм для кридита физ лицу
+                f2 : $("#frame_5")//фрейм автокредита
+            };
+            console.log($("#frame_4").find("input[name=obesp]").attr("checked").length);
+            frameWithCalc.f1.obesp = frameWithCalc.f1.find("input[name=obesp]:checked");
             if ($("label#strahovkaImushestva input").attr('checked')) {
                 flagMax = true;
             } else {
@@ -161,9 +216,10 @@
                 $("span#i_plateg").html(k.pli.toFixed(2) + " руб./мес.");
                 $("span#i_itog").html(k.psk.toFixed(2) + " руб.");
             }
-            function fillKredit(time, sum) {
+            function fillKredit(time, sum,frame) {
                 /*проверка обеспечения*/
                 //console.log($("input[name=obesp]:checked").val());
+                console.log(frameWithCalc.f1.obesp.html());
                 if ($("input[name=obesp]:checked").val() == 1) {
                     pr = 20.5 + 1; //так  как нет возможности узнать кредитную историю
                 } else {
@@ -171,10 +227,10 @@
 
                 }
                 //console.log($("input[name=strahovkaImushestva]:checked").attr("checked"));
-                if ($("input[name=strahovkaImushestva]:checked").attr("checked") == undefined) {
+                if ($("input[name=strahovkaImushestva]:checked").attr("checked") === undefined) {
                     pr = pr + 2;
                 }
-                if ($("input[name=strahovkaLichnosti]:checked").attr("checked") == undefined) {
+                if ($("input[name=strahovkaLichnosti]:checked").attr("checked") === undefined) {
                     pr = pr + 3;
                 }
                 /*проверка страховки*/
@@ -203,7 +259,7 @@
                 });
             }
             
-            fillKredit($("#selectTime").val(), $("input[name=sum]").val());
+            fillKredit($("#selectTime").val(), $("input[name=sum]").val(),frameWithCalc.f1);
 
 
 
@@ -223,8 +279,14 @@
             /*уходит физичиское, приходит расчет для кредита на любые цели*/
             $("#frame_3 .kredit").click(function() {
                 $("#frame_3").hide("drop", {direction: "left"}, "slow", function() {
-                    $("#frame_4").show("drop", {direction: "right"}, 'slow');
-                    $("#logo").hide();
+                    frameWithCalc.f1.show("drop", {direction: "right"}, 'slow');
+                    logo.hide();
+                });
+            });
+            $("#frame_3 .avto").click(function() {
+                $("#frame_3").hide("drop", {direction: "left"}, "slow", function() {
+                    frameWithCalc.f2.show("drop", {direction: "right"}, 'slow');
+                    logo.hide();
                 });
             });
             /*Для страховки имущества*/
