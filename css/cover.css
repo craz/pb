@@ -243,6 +243,9 @@ div#itog{
 span#i_itog{
     color:red;
 }
+.panel-warning .panel-body{
+    background-color: #f1f449;
+}
 /*section{
     width:100%;
     height: 100%;

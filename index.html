@@ -90,10 +90,7 @@
                                 <option value="72">72</option>
                                 <option value="84">84</option>
                             </select>
-                        </p>
-                        <p class='lead'>
-                            <a href="#" class="btn btn-lg go btn-success" onclick="calculate_CreditForAll()">Рассчитать</a>
-                        </p>
+                        </p>                        
                         <div class="panel panel-success" id="itog">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Расчет кредита</h3>
@@ -129,134 +126,145 @@
 
         <script src="js/keyboard/jquery.keyboard.js"></script>
         <script>
-                                var flagMax = false;
-                                if ($("label#strahovkaImushestva input").attr('checked')) {
-                                    flagMax = true;
-                                } else {
-                                    flagMax = false;
-                                }
-                                function getSum(sum) {
-                                    if (sum == '' || sum < 150000.01) {
-                                        return 150000.01;
-                                    }
-                                    else if (sum > 500000 && !flagMax) {
-                                        return 500000;
-                                    } else {
-                                        return sum;
+            var flagMax = false;
+            var kredit;
+            if ($("label#strahovkaImushestva input").attr('checked')) {
+                flagMax = true;
+            } else {
+                flagMax = false;
+            }
+            /*начальные данные 150000.01*/
+            function getSum(sum) {
+                if (sum === '') {
+                    s = 0;
+                } else {
+                    s = parseFloat(sum);
+                }
+                if (s === '' || s < 150000.01) {
+                    return 150000.01;
+                }
+                else if (s > 500000 && !flagMax) {
+                    return 500000;
+                } else {
+                    return s;
 
-                                    }
-                                    return "error";
-                                }
+                }
+                return "error";
+            }
+            function fillSpanItog(k) {
+                console.table([{"время кредита": k.t,
+                        "сумма": k.kr, "% за месяц": k.st, "процент": pr,
+                        "платеж": k.pli, "полная сумма": k.psk, "полные проценты": k.pkr}]);
+                $("span#i_sum").html(k.kr);
+                $("span#i_time").html(k.t);
+                $("span#i_procent").html(pr + "%");
+                $("span#i_plateg").html(k.pli.toFixed(2) + " руб./мес.");
+                $("span#i_itog").html(k.psk.toFixed(2) + " руб.");
+            }
+            function fillKredit(time, sum) {
+                /*проверка обеспечения*/
+                //console.log($("input[name=obesp]:checked").val());
+                if ($("input[name=obesp]:checked").val() == 1) {
+                    pr = 20.5 + 1; //так  как нет возможности узнать кредитную историю
+                } else {
+                    pr = 16.0 + 1; //так  как нет возможности узнать кредитную историю
 
-                                kredit = {
-                                    t: parseInt($("#selectTime").val()), //кол-во периодов оплаты
-                                    kr: getSum($("input[name=sum]").val()), //сумма кредита
+                }
+                //console.log($("input[name=strahovkaImushestva]:checked").attr("checked"));
+                if ($("input[name=strahovkaImushestva]:checked").attr("checked") == undefined) {
+                    pr = pr + 2;
+                }
+                if ($("input[name=strahovkaLichnosti]:checked").attr("checked") == undefined) {
+                    pr = pr + 3;
+                }
+                /*проверка страховки*/
+                kredit = {
+                    t: parseInt(time), //кол-во периодов оплаты
+                    kr: getSum(sum), //сумма кредита
+                    st: pr / (12 * 100), //процентная ставка, начисляемая на задолженность за период;
+                    pli: 0, //размер платежа за i - й период (i принимает значения от 1 до T); 
+                    pkr: 0, //сумма процентов, выплаченных по кредиту за весь срок кредитования.                                                                   
+                    psk: 0, //полная сумма кредита
+                    pr: pr
+                };
 
-                                    st: 20.5 / (12 * 100), //процентная ставка, начисляемая на задолженность за период;
-                                    pli: 0, //размер платежа за i - й период (i принимает значения от 1 до T); 
-                                    pkr: 0, //сумма процентов, выплаченных по кредиту за весь срок кредитования.                                                                   
-                                    psk: 0//полная сумма кредита
-                                };
-
-                                console.log(kredit.t, kredit.kr, kredit.st);
-                                //Плi = Кр*Ст / (1 - 1 / (1+Ст)^T) 
-                                //(1+Ст)^T
-                                temp1 = Math.pow((1 + kredit.st), kredit.t);
-                                kredit.pli = kredit.st * kredit.kr / (1 - 1 / temp1); //расчет ежемесячного платежа
-                                kredit.psk = kredit.pli * kredit.t;
-                                kredit.pkr = kredit.pli * kredit.t - kredit.kr;
-                                console.log(kredit.pli, kredit.psk, kredit.pkr);
-
-                                $("span#i_sum").html(kredit.kr);
-                                $("span#i_time").html(kredit.t);
-                                $("span#i_procent").html((kredit.st * 12 * 100) + "%");
-                                $("span#i_plateg").html(kredit.pli.toFixed(2) + " руб./мес.");
-                                $("span#i_itog").html(kredit.psk.toFixed(2) + " руб.");
-
-                                /*первый уходит, второй приходит*/
-                                $("#frame_1 .btn").click(function() {
-                                    $("#frame_1").hide("drop", {direction: "left"}, "slow", function() {
-                                        $("#frame_2").show("drop", {direction: "right"}, 'slow');
-                                    });
-                                });
-                                /*второй уходит, приходит физическое*/
-                                $("#frame_2 .fiz").click(function() {
-                                    $("#frame_2").hide("drop", {direction: "left"}, "slow", function() {
-                                        $("#frame_3").show("drop", {direction: "right"}, 'slow');
-                                    });
-                                });
-                                /*уходит физичиское, приходит расчет для кредита на любые цели*/
-                                $("#frame_3 .kredit").click(function() {
-                                    $("#frame_3").hide("drop", {direction: "left"}, "slow", function() {
-                                        $("#frame_4").show("drop", {direction: "right"}, 'slow');
-                                        $("#logo").hide();
-                                    });
-                                });
-                                /*Для страховки имущества*/
-                                $("#frame_4 input[name='obesp']").click(function() {
-                                    if ($(this).val() == 1) {
-                                        $("label#strahovkaImushestva").hide();
-                                        $("label#strahovkaImushestva input").removeAttr("checked");
-                                    } else if ($(this).val() == 2) {
-                                        $("label#strahovkaImushestva").show();
-                                        $("label#strahovkaImushestva input").attr('checked', 'checked');
-                                    }
-                                });
-
-
-
-                                function calculate_CreditForAll() {
-                                    /*проверяем обеспечение*/
-
+                //Плi = Кр*Ст / (1 - 1 / (1+Ст)^T) 
+                //(1+Ст)^T
+                temp1 = Math.pow((1 + kredit.st), kredit.t);
+                kredit.pli = kredit.st * kredit.kr / (1 - 1 / temp1); //расчет ежемесячного платежа
+                kredit.psk = kredit.pli * kredit.t;
+                kredit.pkr = kredit.pli * kredit.t - kredit.kr;
+                console.table([{"время кредита": kredit.t,
+                        "сумма": kredit.kr, "% за месяц": kredit.st, "процент": pr,
+                        "платеж": kredit.pli, "полная сумма": kredit.psk, "полные проценты": kredit.pkr}]);
+                fillSpanItog(kredit);
+                addC();
+            }
+            function addC() {
+                $(".panel").addClass("panel-warning", 1, callback);
+                return false;
+            }
+            function callback() {
+                setTimeout(function() {
+                    $(".panel").removeClass("panel-warning",1000);
+                }, 1500);
+            }
+            fillKredit($("#selectTime").val(), $("input[name=sum]").val());
 
 
-                                    var enterParams = {
-                                        profitSource: $('input[name=dohod]:checked').val(),
-                                        creditSum: ssum,
-                                        provision: $('input[name=obesp]:checked').val(),
-                                        creditTerm
-                                                : $("#selectTime").val(),
-                                        insuranceProperty: flagMax,
-                                        insurancePerson: $('input[name=strahovkaImushestva]:checked').val()
-                                    };
-                                    console.log(enterParams);
-                                    //Product_CreditForAll(enterParams, 0, 1);
-                                }
-                                $("input[name=sum]").change(function() {
 
-                                    kredit = {
-                                        t: parseInt($("#selectTime").val()), //кол-во периодов оплаты
-                                        kr: getSum(parseFloat($("input[name=sum]").val())), //сумма кредита
 
-                                        st: 20.5 / (12 * 100), //процентная ставка, начисляемая на задолженность за период;
-                                        pli: 0, //размер платежа за i - й период (i принимает значения от 1 до T); 
-                                        pkr: 0, //сумма процентов, выплаченных по кредиту за весь срок кредитования.                                                                   
-                                        psk: 0//полная сумма кредита
-                                    };
+            /*первый уходит, второй приходит*/
+            $("#frame_1 .btn").click(function() {
+                $("#frame_1").hide("drop", {direction: "left"}, "slow", function() {
+                    $("#frame_2").show("drop", {direction: "right"}, 'slow');
+                });
+            });
+            /*второй уходит, приходит физическое*/
+            $("#frame_2 .fiz").click(function() {
+                $("#frame_2").hide("drop", {direction: "left"}, "slow", function() {
+                    $("#frame_3").show("drop", {direction: "right"}, 'slow');
+                });
+            });
+            /*уходит физичиское, приходит расчет для кредита на любые цели*/
+            $("#frame_3 .kredit").click(function() {
+                $("#frame_3").hide("drop", {direction: "left"}, "slow", function() {
+                    $("#frame_4").show("drop", {direction: "right"}, 'slow');
+                    $("#logo").hide();
+                });
+            });
+            /*Для страховки имущества*/
+            $("#frame_4 input[name='obesp']").click(function() {
+                if ($(this).val() == 1) {
+                    $("label#strahovkaImushestva").hide();
+                } else if ($(this).val() == 2) {
+                    $("label#strahovkaImushestva").show();
+                }
+            });
 
-                                    console.log(kredit.t, kredit.kr, kredit.st);
-                                    //Плi = Кр*Ст / (1 - 1 / (1+Ст)^T) 
-                                    //(1+Ст)^T
-                                    temp1 = Math.pow((1 + kredit.st), kredit.t);
-                                    kredit.pli = kredit.st * kredit.kr / (1 - 1 / temp1); //расчет ежемесячного платежа
-                                    kredit.psk = kredit.pli * kredit.t;
-                                    kredit.pkr = kredit.pli * kredit.t - kredit.kr;
-                                    console.log(kredit.pli, kredit.psk, kredit.pkr);
-                                    $("span#i_sum").html(kredit.kr);
-                                    $("span#i_time").html(kredit.t);
-                                    $("span#i_procent").html((kredit.st * 12 * 100) + "%");
-                                    $("span#i_plateg").html(kredit.pli.toFixed(2) + " руб./мес.");
-                                    $("span#i_itog").html(kredit.psk.toFixed(2) + " руб.");
-                                });
+            $("#frame_4 input[name='obesp']").change(function() {
+                fillKredit($("#selectTime").val(), $("input[name=sum]").val());
+            });
+
+            $("input[name=sum]").change(function() {
+                fillKredit($("#selectTime").val(), $("input[name=sum]").val());
+            });
+            $("input[name=strahovkaImushestva]").change(function() {
+                fillKredit($("#selectTime").val(), $("input[name=sum]").val());
+            });
+            $("input[name=strahovkaLichnosti]").change(function() {
+                fillKredit($("#selectTime").val(), $("input[name=sum]").val());
+            });
+
 // Script 
-                                $('#num')
-                                        .keyboard({
-                                            layout: 'num',
-                                            restrictInput: false, // Prevent keys not in the displayed keyboard from being typed in 
-                                            preventPaste: true, // prevent ctrl-v and right click 
-                                            autoAccept: true
-                                        });
-                                /*.addTyping()*/;
+            $('#num')
+                    .keyboard({
+                        layout: 'num',
+                        restrictInput: false, // Prevent keys not in the displayed keyboard from being typed in 
+                        preventPaste: true, // prevent ctrl-v and right click 
+                        autoAccept: true
+                    });
+            /*.addTyping()*/;
         </script>
 
     </body>
