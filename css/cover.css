@@ -230,6 +230,19 @@ input#num{
 #strahovkaImushestva{
     display: none;
 }
+div#itog{
+    position:absolute;
+    top:70px;
+    left:50%; 
+    margin-left:50px;    
+}
+.panel-body{
+    color: #00519b;
+    text-align: left;
+}
+span#i_itog{
+    color:red;
+}
 /*section{
     width:100%;
     height: 100%;

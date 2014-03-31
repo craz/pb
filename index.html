@@ -57,9 +57,9 @@
                         <h1 class="cover-heading">Выбирите программу кредитования:</h1>            
                         <p class="lead">
                             <a href="#" class="btn kredit btn-lg btn-success">Кредит на любые цели</a>
-                            <a href="#" class="btn avto btn-lg btn-success">Автокредит</a><br/><br/>
-                            <a href="#" class="btn ipoteka btn-lg btn-success">Ипотека</a>
-                            <a href="#" class="btn vklad btn-lg btn-success">Вклад</a><br/>
+                            <a href="#" class="btn avto btn-lg btn-default">Автокредит</a><br/><br/>
+                            <a href="#" class="btn ipoteka btn-lg btn-default">Ипотека</a>
+                            <a href="#" class="btn vklad btn-lg btn-default">Вклад</a><br/>
                         </p>
                     </div>
                     <div class="inner cover frames" id="frame_4">                        
@@ -81,9 +81,9 @@
                         </p>
                         <p class="lead">
                             <label id='strahovkaLichnosti'><input type="checkbox" name='strahovkaLichnosti' checked="checked"> Личное страхование</label><br/>
-                            <select id='selectTime'>
-                                <option disabled='disabled' selected="selected">Выберите срок кредита</option>
-                                <option value="24">24</option>
+                            <Span>Выберите срок кредита</span>&nbsp;&nbsp;
+                            <select id='selectTime' style="width:50px;">                                
+                                <option value="24" selected="selected">24</option>
                                 <option value="36">36</option>
                                 <option value="48">48</option>
                                 <option value="60">60</option>
@@ -94,7 +94,18 @@
                         <p class='lead'>
                             <a href="#" class="btn btn-lg go btn-success" onclick="calculate_CreditForAll()">Рассчитать</a>
                         </p>
-                        <div id="itog"></div>
+                        <div class="panel panel-success" id="itog">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Расчет кредита</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Сумма кредита: <span id="i_sum"></span></p>
+                                <p>Срок кредита: <span id="i_time"></span></p>
+                                <p>Процентная ставка: <span id="i_procent"></span></p>
+                                <p>Ежемесячный платеж: <span id="i_plateg"></span></p>      
+                                <p>Всего к выплате: <span id="i_itog"></span></p>
+                            </div>
+                        </div>
                     </div>
                     <div class="mastfoot">
                         <div class="inner">
@@ -118,6 +129,50 @@
 
         <script src="js/keyboard/jquery.keyboard.js"></script>
         <script>
+                                var flagMax = false;
+                                if ($("label#strahovkaImushestva input").attr('checked')) {
+                                    flagMax = true;
+                                } else {
+                                    flagMax = false;
+                                }
+                                function getSum(sum) {
+                                    if (sum == '' || sum < 150000.01) {
+                                        return 150000.01;
+                                    }
+                                    else if (sum > 500000 && !flagMax) {
+                                        return 500000;
+                                    } else {
+                                        return sum;
+
+                                    }
+                                    return "error";
+                                }
+
+                                kredit = {
+                                    t: parseInt($("#selectTime").val()), //кол-во периодов оплаты
+                                    kr: getSum($("input[name=sum]").val()), //сумма кредита
+
+                                    st: 20.5 / (12 * 100), //процентная ставка, начисляемая на задолженность за период;
+                                    pli: 0, //размер платежа за i - й период (i принимает значения от 1 до T); 
+                                    pkr: 0, //сумма процентов, выплаченных по кредиту за весь срок кредитования.                                                                   
+                                    psk: 0//полная сумма кредита
+                                };
+
+                                console.log(kredit.t, kredit.kr, kredit.st);
+                                //Плi = Кр*Ст / (1 - 1 / (1+Ст)^T) 
+                                //(1+Ст)^T
+                                temp1 = Math.pow((1 + kredit.st), kredit.t);
+                                kredit.pli = kredit.st * kredit.kr / (1 - 1 / temp1); //расчет ежемесячного платежа
+                                kredit.psk = kredit.pli * kredit.t;
+                                kredit.pkr = kredit.pli * kredit.t - kredit.kr;
+                                console.log(kredit.pli, kredit.psk, kredit.pkr);
+
+                                $("span#i_sum").html(kredit.kr);
+                                $("span#i_time").html(kredit.t);
+                                $("span#i_procent").html((kredit.st * 12 * 100) + "%");
+                                $("span#i_plateg").html(kredit.pli.toFixed(2) + " руб./мес.");
+                                $("span#i_itog").html(kredit.psk.toFixed(2) + " руб.");
+
                                 /*первый уходит, второй приходит*/
                                 $("#frame_1 .btn").click(function() {
                                     $("#frame_1").hide("drop", {direction: "left"}, "slow", function() {
@@ -147,26 +202,14 @@
                                         $("label#strahovkaImushestva input").attr('checked', 'checked');
                                     }
                                 });
+
+
+
                                 function calculate_CreditForAll() {
                                     /*проверяем обеспечение*/
-                                    var flagMax = false;
-                                    if ($("label#strahovkaImushestva input").attr('checked')) {
-                                        flagMax = true;
-                                    } else {
-                                        flagMax = false;
-                                    }
-                                    var ssum = function() {
-                                        if ($("input[name=sum]").val() == '' || $("input[name=sum]").val() < 150000.01) {
-                                            return 150000.01;
-                                        }
-                                        else if ($("input[name=sum]").val() > 500000 && !flagMax) {
-                                            return $("input[name=sum]").val();
-                                        } else {
-                                            return 500000
-                                        }
-                                        return "error";
-                                    }
-                                    $(".go").html(ssum);
+
+
+
                                     var enterParams = {
                                         profitSource: $('input[name=dohod]:checked').val(),
                                         creditSum: ssum,
@@ -179,7 +222,32 @@
                                     console.log(enterParams);
                                     //Product_CreditForAll(enterParams, 0, 1);
                                 }
+                                $("input[name=sum]").change(function() {
 
+                                    kredit = {
+                                        t: parseInt($("#selectTime").val()), //кол-во периодов оплаты
+                                        kr: getSum(parseFloat($("input[name=sum]").val())), //сумма кредита
+
+                                        st: 20.5 / (12 * 100), //процентная ставка, начисляемая на задолженность за период;
+                                        pli: 0, //размер платежа за i - й период (i принимает значения от 1 до T); 
+                                        pkr: 0, //сумма процентов, выплаченных по кредиту за весь срок кредитования.                                                                   
+                                        psk: 0//полная сумма кредита
+                                    };
+
+                                    console.log(kredit.t, kredit.kr, kredit.st);
+                                    //Плi = Кр*Ст / (1 - 1 / (1+Ст)^T) 
+                                    //(1+Ст)^T
+                                    temp1 = Math.pow((1 + kredit.st), kredit.t);
+                                    kredit.pli = kredit.st * kredit.kr / (1 - 1 / temp1); //расчет ежемесячного платежа
+                                    kredit.psk = kredit.pli * kredit.t;
+                                    kredit.pkr = kredit.pli * kredit.t - kredit.kr;
+                                    console.log(kredit.pli, kredit.psk, kredit.pkr);
+                                    $("span#i_sum").html(kredit.kr);
+                                    $("span#i_time").html(kredit.t);
+                                    $("span#i_procent").html((kredit.st * 12 * 100) + "%");
+                                    $("span#i_plateg").html(kredit.pli.toFixed(2) + " руб./мес.");
+                                    $("span#i_itog").html(kredit.psk.toFixed(2) + " руб.");
+                                });
 // Script 
                                 $('#num')
                                         .keyboard({
@@ -188,8 +256,7 @@
                                             preventPaste: true, // prevent ctrl-v and right click 
                                             autoAccept: true
                                         });
-                                        /*.addTyping()*/;
-
+                                /*.addTyping()*/;
         </script>
 
     </body>
