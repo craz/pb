@@ -198,17 +198,11 @@
                         "сумма": kredit.kr, "% за месяц": kredit.st, "процент": pr,
                         "платеж": kredit.pli, "полная сумма": kredit.psk, "полные проценты": kredit.pkr}]);
                 fillSpanItog(kredit);
-                addC();
+                $(".panel").animate({backgroundColor:"#f6f7b9"},400,function(){
+                    $(this).animate({backgroundColor:"#fff"},400);
+                });
             }
-            function addC() {
-                $(".panel").addClass("panel-warning", 1, callback);
-                return false;
-            }
-            function callback() {
-                setTimeout(function() {
-                    $(".panel").removeClass("panel-warning",1000);
-                }, 1500);
-            }
+            
             fillKredit($("#selectTime").val(), $("input[name=sum]").val());
 
 
@@ -253,6 +247,9 @@
                 fillKredit($("#selectTime").val(), $("input[name=sum]").val());
             });
             $("input[name=strahovkaLichnosti]").change(function() {
+                fillKredit($("#selectTime").val(), $("input[name=sum]").val());
+            });
+            $("#selectTime").change(function(){
                 fillKredit($("#selectTime").val(), $("input[name=sum]").val());
             });
 
