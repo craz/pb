@@ -164,7 +164,7 @@ body,section {
 /*Craz style for pervobank*/
 /*+++++++first frame+++++++*/
 .frames{
-    display: none;
+    zdisplay: none;
 }
 #frame_1{
     display: block;
@@ -193,17 +193,15 @@ body,section {
 .ui-keyboard-preview-wrapper, .ui-keyboard-preview, ui-keyboard-button{
     opacity: 1;
 }
-input#num{
+#frame_4 input.num,
+#frame_5 input.num{
     width:290px;
+    color:#00519b;
 }
 .ui-keyboard-accept{
     min-width: 2em;
 }
 
-#frame_4 #num,
-#frame_5 #num{
-    color:#00519b;
-}
 #frame_4 h1,
 #frame_5 h1{
     text-align: left;
@@ -215,8 +213,8 @@ input#num{
     font-size: 15px;
     text-align: left;
 }
-#frame_4 select#selectTime,
-#frame_5 select#selectTime{
+#frame_4 select,
+#frame_5 select{
     color:#00519b;
     width: 290px;
     height: 24px;

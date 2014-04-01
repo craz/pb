@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -72,7 +71,7 @@
                         </p>
                         <h1 class="cover-heading">Сумма:</h1>
                         <p class="lead">
-                            <input id="num" name='sum' class="alignRight" type="text" value='' placeholder="минимальная сумма кредита 150000,01">
+                            <input name='sum' class="alignRight textFields num" type="text" value='30000'>
                         </p>
                         <h1 class="cover-heading">Выбор обеспечения:</h1>
                         <p class="lead">
@@ -82,7 +81,7 @@
                         </p>
                         <p class="lead">
                             <label id='strahovkaLichnosti'><input type="checkbox" name='strahovkaLichnosti' checked="checked"> Личное страхование</label><br/>
-                            <Span>Выберите срок кредита</span>&nbsp;&nbsp;
+                            <span>Выберите срок кредита</span>&nbsp;&nbsp;
                             <select id='selectTime' style="width:50px;">                                
                                 <option value="24" selected="selected">24</option>
                                 <option value="36">36</option>
@@ -114,27 +113,26 @@
                         </p>
                         <h1 class="cover-heading">Стоимость автомобиля:</h1>
                         <p class="lead">
-                            <input id="num" name='sumavto' class="alignRight textFields" type="text" value='' placeholder="минимальная сумма кредита 150000,01">
+                            <input name='sumavto' class="alignRight textFields num" type="text" value='50000' placeholder="минимальная сумма кредита 150000,01">
                         </p>
                         <h1 class="cover-heading">Первоначальный взнос:</h1>
                         <p class="lead">
-                            <input id="num" name='vznos' class="alignRight textFields" type="text" value='' placeholder="минимальная сумма кредита 150000,01">
+                            <input name='vznos' class="alignRight textFields num" type="text" value='35000' placeholder="минимальная сумма кредита 150000,01">
                         </p>
                         <p class="lead">                            
                             <span>Выберите срок кредита:</span>&nbsp;&nbsp;
-                            <select id='selectTimeavto' style="width:50px;">                                
-                                <option value="24" selected="selected">24</option>
+                            <select id='selectTimeAvto' style="width:50px;">                                
+                                <option value="24" selected="selected">12</option>
+                                <option value="24">24</option>
                                 <option value="36">36</option>
                                 <option value="48">48</option>
-                                <option value="60">60</option>
-                                <option value="72">72</option>
-                                <option value="84">84</option>
+                                <option value="60">60</option>                                
                             </select>
                         </p>
                         <h1 class="cover-heading">Страхование:</h1>
                         <p class="lead">
-                            <label><input type='radio' name='' value='1' checked="checked"> С оформлением страховки автомобиля</label><br/>
-                            <label><input type='radio' name='' value='2'> Без оформления страховки автомобиля</label><br/>                                                        
+                            <label><input type='radio' name='strahovanieAvto' value='1' checked="checked"> С оформлением страховки автомобиля</label><br/>
+                            <label><input type='radio' name='strahovanieAvto' value='2'> Без оформления страховки автомобиля</label><br/>                                                        
                         </p>
                         <p class="lead">
                             <label id='strahovkaLichnosti'><input type="checkbox" name='str' checked="checked"> Личное страхование</label><br/>                            
@@ -174,15 +172,15 @@
 
         <script src="js/keyboard/jquery.keyboard.js"></script>
         <script>
+            /*инициализация переменных*/
             var flagMax = false;
             var kredit;
-            var logo = $("#logo");            
+            var logo = $("#logo");
+            
             var frameWithCalc = {
-                f1 : $("#frame_4"),//фрейм для кридита физ лицу
-                f2 : $("#frame_5")//фрейм автокредита
+                f1: $("#frame_4"), //фрейм для кридита физ лицу
+                f2: $("#frame_5")//фрейм автокредита
             };
-            console.log($("#frame_4").find("input[name=obesp]").attr("checked").length);
-            frameWithCalc.f1.obesp = frameWithCalc.f1.find("input[name=obesp]:checked");
             if ($("label#strahovkaImushestva input").attr('checked')) {
                 flagMax = true;
             } else {
@@ -190,42 +188,69 @@
             }
             /*начальные данные 150000.01*/
             function getSum(sum) {
+
                 if (sum === '') {
-                    s = 0;
+                    s = 30000;
                 } else {
                     s = parseFloat(sum);
                 }
-                if (s === '' || s < 150000.01) {
-                    return 150000.01;
-                }
-                else if (s > 500000 && !flagMax) {
-                    return 500000;
-                } else {
-                    return s;
-
-                }
-                return "error";
+                /*if (s === '' || s < 150000.01) {
+                 return 150000.01;
+                 }
+                 else if (s > 500000 && !flagMax) {
+                 frameWithCalc.f1.find("input[name=sum]").val = 500000;
+                 return 500000;
+                 } else {*/
+                return s;
+                /*}*/
             }
-            function fillSpanItog(k) {
+            /*function getProcentForAvto(sum, vznos) {                
+                prvznosa = vznos / sum;
+                alert(prvznosa);
+                if (prvznosa >= 0.7) {
+                    p = 13.5;
+                } 
+                if (prvznosa >= 0.3 && prvznosa < 0.7) {
+                    p = 15;
+                }
+                if (prvznosa < 0.3 && prvznosa >= 0.15) {
+                    p = 18.5;
+                }
+                alert(p);
+                return (p);
+            }*/
+
+            function fillSpanItog(k, frame) {
                 console.table([{"время кредита": k.t,
                         "сумма": k.kr, "% за месяц": k.st, "процент": pr,
                         "платеж": k.pli, "полная сумма": k.psk, "полные проценты": k.pkr}]);
-                $("span#i_sum").html(k.kr);
-                $("span#i_time").html(k.t);
-                $("span#i_procent").html(pr + "%");
-                $("span#i_plateg").html(k.pli.toFixed(2) + " руб./мес.");
-                $("span#i_itog").html(k.psk.toFixed(2) + " руб.");
+                frame.find("span#i_sum").html(k.kr + ' руб.');
+                frame.find("span#i_time").html(k.t + ' мес.');
+                frame.find("span#i_procent").html(pr + "%");
+                frame.find("span#i_plateg").html(k.pli.toFixed(2) + " руб./мес.");
+                frame.find("span#i_itog").html(k.psk.toFixed(2) + " руб.");
             }
-            function fillKredit(time, sum,frame) {
-                /*проверка обеспечения*/
-                //console.log($("input[name=obesp]:checked").val());
-                console.log(frameWithCalc.f1.obesp.html());
-                if ($("input[name=obesp]:checked").val() == 1) {
-                    pr = 20.5 + 1; //так  как нет возможности узнать кредитную историю
-                } else {
-                    pr = 16.0 + 1; //так  как нет возможности узнать кредитную историю
-
+            function fillKredit(time, sum, frame) {
+                /*проверка обеспечения для физкредита*/
+                console.log(frame.selector);
+                if (frame.selector === "#frame_4") {
+                    if (sum < 150000) {
+                        pr = 27.5;
+                    } else {
+                        if (frame.find("input[name=obesp]:checked").val() == 1) {
+                            pr = 20.5 + 1; //так  как нет возможности узнать кредитную историю прибавляем КЗ +1%
+                        } else {
+                            pr = 16.0 + 1; //так  как нет возможности узнать кредитную историю прибавляем КЗ +1%
+                        }
+                    }
+                    /*проверяем первоначальный взнос для того чтобы выбрать процент*/
+                } else if (frame.selector === "#frame_5") {
+                    if (frame.find("input[name=vznos]").val()/frame.find("input[name=sumavto]").val()<0.7){
+                        pr = 13.5+1;
+                    }
+                    
                 }
+
                 //console.log($("input[name=strahovkaImushestva]:checked").attr("checked"));
                 if ($("input[name=strahovkaImushestva]:checked").attr("checked") === undefined) {
                     pr = pr + 2;
@@ -250,17 +275,15 @@
                 kredit.pli = kredit.st * kredit.kr / (1 - 1 / temp1); //расчет ежемесячного платежа
                 kredit.psk = kredit.pli * kredit.t;
                 kredit.pkr = kredit.pli * kredit.t - kredit.kr;
-                console.table([{"время кредита": kredit.t,
-                        "сумма": kredit.kr, "% за месяц": kredit.st, "процент": pr,
-                        "платеж": kredit.pli, "полная сумма": kredit.psk, "полные проценты": kredit.pkr}]);
-                fillSpanItog(kredit);
-                $(".panel").animate({backgroundColor:"#f6f7b9"},400,function(){
-                    $(this).animate({backgroundColor:"#fff"},400);
+
+                fillSpanItog(kredit, frame);
+                $(".panel").animate({backgroundColor: "#f6f7b9"}, 400, function() {
+                    $(this).animate({backgroundColor: "#fff"}, 400);
                 });
             }
-            
-            fillKredit($("#selectTime").val(), $("input[name=sum]").val(),frameWithCalc.f1);
 
+            fillKredit(frameWithCalc.f1.find("#selectTime").val(), frameWithCalc.f1.find("input[name=sum]").val(), frameWithCalc.f1);
+            fillKredit(frameWithCalc.f2.find("#selectTimeAvto").val(), frameWithCalc.f2.find("input[name=sumavto]").val(), frameWithCalc.f2);
 
 
 
@@ -283,13 +306,14 @@
                     logo.hide();
                 });
             });
+            /*уходит физическое приходит авто-кредит*/
             $("#frame_3 .avto").click(function() {
                 $("#frame_3").hide("drop", {direction: "left"}, "slow", function() {
                     frameWithCalc.f2.show("drop", {direction: "right"}, 'slow');
                     logo.hide();
                 });
             });
-            /*Для страховки имущества*/
+            /*Для страховки имущества фрейм кредита физ лица*/
             $("#frame_4 input[name='obesp']").click(function() {
                 if ($(this).val() == 1) {
                     $("label#strahovkaImushestva").hide();
@@ -297,26 +321,54 @@
                     $("label#strahovkaImushestva").show();
                 }
             });
+            /*===Фрейм физ лица, обработка изменений===*/
+            {
+                $("#frame_4 input[name='obesp']").change(function() {
+                    fillKredit(frameWithCalc.f1.find("#selectTime").val(), frameWithCalc.f1.find("input[name=sum]").val(), frameWithCalc.f1);
+                });
 
-            $("#frame_4 input[name='obesp']").change(function() {
-                fillKredit($("#selectTime").val(), $("input[name=sum]").val());
-            });
+                $("#frame_4 input[name=sum]").change(function() {
+                    if ($("#frame_4 input[name=sum]").val() < 30000) {
+                        $("#frame_4 input[name=sum]").val(30000);
+                    }
+                    fillKredit(frameWithCalc.f1.find("#selectTime").val(), frameWithCalc.f1.find("input[name=sum]").val(), frameWithCalc.f1);
 
-            $("input[name=sum]").change(function() {
-                fillKredit($("#selectTime").val(), $("input[name=sum]").val());
-            });
-            $("input[name=strahovkaImushestva]").change(function() {
-                fillKredit($("#selectTime").val(), $("input[name=sum]").val());
-            });
-            $("input[name=strahovkaLichnosti]").change(function() {
-                fillKredit($("#selectTime").val(), $("input[name=sum]").val());
-            });
-            $("#selectTime").change(function(){
-                fillKredit($("#selectTime").val(), $("input[name=sum]").val());
-            });
+                });
+                $("#frame_4 input[name=strahovkaImushestva]").change(function() {
+                    fillKredit(frameWithCalc.f1.find("#selectTime").val(), frameWithCalc.f1.find("input[name=sum]").val(), frameWithCalc.f1);
+                });
+                $("#frame_4 input[name=strahovkaLichnosti]").change(function() {
+                    fillKredit(frameWithCalc.f1.find("#selectTime").val(), frameWithCalc.f1.find("input[name=sum]").val(), frameWithCalc.f1);
+                });
+                $("#frame_4 #selectTime").change(function() {
+                    fillKredit(frameWithCalc.f1.find("#selectTime").val(), frameWithCalc.f1.find("input[name=sum]").val(), frameWithCalc.f1);
+                });
+            }
+            /*===Фрейм авто-кредит, обработка изменений===*/
+            {
+                $("#frame_5 input[name='sumavto']").change(function() {
+                    fillKredit(frameWithCalc.f2.find("#selectTimeAvto").val(), frameWithCalc.f2.find("input[name=sumavto]").val(), frameWithCalc.f2);
+                });
+
+                $("#frame_5 input[name=vznos]").change(function() {
+                    if ($("#frame_5 input[name=sum]").val() < 50000) {
+                        $("#frame_5 input[name=sum]").val(50000);
+                    }
+                    fillKredit(frameWithCalc.f2.find("#selectTime").val(), frameWithCalc.f2.find("input[name=sum]").val(), frameWithCalc.f2);
+                });
+                $("#frame_4 input[name=strahovkaImushestva]").change(function() {
+                    fillKredit(frameWithCalc.f2.find("#selectTime").val(), frameWithCalc.f2.find("input[name=sum]").val(), frameWithCalc.f2);
+                });
+                $("#frame_4 input[name=strahovkaLichnosti]").change(function() {
+                    fillKredit(frameWithCalc.f2.find("#selectTime").val(), frameWithCalc.f2.find("input[name=sum]").val(), frameWithCalc.f2);
+                });
+                $("#frame_4 #selectTime").change(function() {
+                    fillKredit(frameWithCalc.f2.find("#selectTime").val(), frameWithCalc.f2.find("input[name=sum]").val(), frameWithCalc.f2);
+                });
+            }
 
 // Script 
-            $('#num')
+            $('.num')
                     .keyboard({
                         layout: 'num',
                         restrictInput: false, // Prevent keys not in the displayed keyboard from being typed in 

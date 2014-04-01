@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+        <title>Cover Template for Bootstrap</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/keyboard.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="css/cover.css" rel="stylesheet">
+
+        <!-- Just for debugging purposes. Don't actually copy this line! -->
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="site-wrapper">
+
+            <div class="site-wrapper-inner">
+
+                <div class="cover-container">
+                    <!--!!!!!!!!!!!!!!!Заставка!!!!!!!!!!!!!!!-->
+                    <img src="img/fromVk.jpg" width="200" height="200" id='logo' alt="logo">
+
+                    <div class="mastfoot">
+                        <div class="inner">
+                            <p><img src="img/bottom.png" width="600" alt="contacts"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/docs.min.js"></script>
+        <script type="text/javascript">
+            var mainElements = {
+                container: $(".cover-container"),
+                logo: $("#logo")
+            };
+            var frames = {
+                initialScreen: {
+                    id: "initialScreen",
+                    title: "Моментально рассчитать условия<br/><span> по кредиту или вкладу</span>",
+                    queue: 0,
+                    get: function() {
+                        frames.createFrame(this);
+                        return frames.getFrame(this.id);
+                    }
+                },
+                createFrame: function(obj) {
+                    mainElements.logo.after(
+                            "<div class='inner cover frames' id='frame_" + obj.id + "'>" +
+                            "<h1 class='cover-heading'>" + obj.title + "</h1>" +
+                            "</div>");
+                    /*for(i=0;i<leads.length;i++){
+                        $(this.getFrame(obj.id).attr("id")).append(leads[i].createLead());
+                    }*/
+                    return this;
+                },
+                getFrame: function(id) {
+                    return mainElements.container.find("div#frame_" + id);
+                },
+                showFrame: function(id) {
+                    this.getFrame(id).show();
+                    return this;
+                },
+                hideFrame: function(id) {
+                    this.getFrame(id).hide();
+                    return this;
+                }
+            };
+
+            var leads = [{
+                0 : {
+                    parentFrame: frames.initialScreen,
+                    createLead: function() {
+                        return "<p class='lead'>1</p>";
+                    },
+                    queue: frames.initialScreen.queue
+                },
+                1 : {
+                    parentFrame: frames.initialScreen,
+                    createLead: function() {
+                        return "<p class='lead'>2</p>";
+                    },
+                    queue: frames.initialScreen.queue
+                }
+            }];
+
+            console.log(frames.initialScreen.get(), leads[0].queue);
+            
+            /*frames.createFrame(frames.zastavka.id, {title: frames.zastavka.title}).showFrame(frames.zastavka.id);
+             
+             console.log(frames.getFrame(frames.zastavka.id));*/
+
+        </script>
+    </body>
+</html>
